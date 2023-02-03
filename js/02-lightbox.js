@@ -15,19 +15,17 @@ function createItems(array) {
 
 const gallery = document.querySelector('.gallery');
 gallery.innerHTML = createItems(galleryItems);
+let galleryNew = new SimpleLightbox('.gallery a', {
+	captionsData: 'alt',
+	captionDelay: 250,
+	alertError: false,
+});
 
 gallery.addEventListener('click', onImageClick);
 
 function onImageClick(event) {
 	if (event.target.nodeName === 'IMG') {
 		event.preventDefault();
-
-		let gallery = new SimpleLightbox('.gallery a', {
-			captionsData: 'alt',
-			captionDelay: 250,
-			alertError: false,
-		});
-		gallery.on('show.simplelightbox');
 	}
 }
 

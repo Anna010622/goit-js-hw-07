@@ -28,18 +28,25 @@ function onImageClick(event) {
 	if (event.target.hasAttribute('data-source')) {
 		event.preventDefault();
 
-		window.addEventListener('keydown', onEscKeyPress);
-
-		const img = basicLightbox.create(`
+		const img = basicLightbox.create(
+			`
       <img src="${event.target.dataset.source}" alt="${event.target.alt}">
-    `);
+    `,
+			{
+				onShow: () => {
+					window.addEventListener('keydown', onEscKeyPress);
+				},
+				onClose: () => {
+					window.removeEventListener('keydown', onEscKeyPress);
+				},
+			}
+		);
 
 		img.show();
 
 		function onEscKeyPress(event) {
 			if (event.code === 'Escape') {
 				img.close();
-				window.removeEventListener('keydown', onEscKeyPress);
 			}
 		}
 	}
